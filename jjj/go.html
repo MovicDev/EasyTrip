@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+	<style>
+	
+	</style>
+</body>
+</html>
+<?php
+	session_start();
+	$num=$_SESSION['num'];
+	$name=$_SESSION['name'];
+$code=$_SESSION['code'];
+$p6=$_SESSION['person'];
+	$p7=$_SESSION['human'];
+$p11=$_SESSION['adult'];
+	$p12=$_SESSION['child'];
+	$p14=$_SESSION['adult_1'];
+	$p15=$_SESSION['child_1'];
+
+	 include "connect.php";
+	$sqli = "SELECT * from info where num='$num'";
+			
+		   $sqli2 = mysqli_query($connection,$sqli);
+			  
+			   while($row = mysqli_fetch_array($sqli2))
+					{
+				    $num=$row['num'];
+				   $name=$row['name'];
+				  $code=$row['code'];
+				   $id=$row['id'];
+	$password = $row['password'];  					
+	$nation= $row['nation'];
+	$gender = $row['gender'];
+	$year= $row['year'];  
+   $month = $row["month"];   					
+	$day= $row['day'];
+	$p1 = $row['trip'];
+	$p2 = $row['trav'];
+	$p3 = $row['trato'];
+	$p4 = $row['joun'];
+	 $p5 = $row['back'];
+	$p6 = $row['person'];
+	$p7 = $row['human'];
+				   
+			   }
+			   
+
+?>
+<table>
+	<tr><td><font style="font-size: 30px;"><i><b> Hello <?php echo $name;?>! </b></i></font></td></tr>
+</table><br>
+
+<form action="me.php" method="post">	
+	<input type="hidden" value="<?php  echo $num;  ?>" name="num"><br>
+	Where are you travelling to?<br><br>
+	<input type="radio" name="trip" value="One way Ticket" required>One way Ticket 
+	<input type="radio" name="trip" value="Round Trip Ticket" required>Round Trip Ticket <br><br>
+	Travelling From?<br><br>
+	<select id="trav" name="trav" required><option>A</option>
+	<option>LAGOS__(ikotun stop)</option>
+	<option>C</option>
+	<option>D</option>
+	<option>E</option></select><br>&nbsp;&nbsp;Travelling To?<br><br>
+	<select name="trato" id="trato" required><option>OYO__(ibadan stop)</option>
+	<option>x</option>
+	<option>y</option>
+	<option>z</option>
+	<option></option></select><br><br>
+
+journey Date?<br><input type="date" name="joun" required><br><br>
+	TIME TO GO<br><br>
+	<select name="time" id="time" required>
+	<option>9:00am</option>
+	<option>12:00pm</option>
+	<option>3:00pm</option>
+	<option>6:00pm</option>
+		<option>9:00pm</option>
+</select><br><br>
+	
+	
+	Return Date?<br><input type="date" name="back" required><br><br>
+	TIME TO BACK<br><br>
+	<select name="arrive" id="arrive" required>
+	<option >7:00am</option>
+	<option >9:00am</option>
+	<option>2:00pm</option>
+	<option >5:00pm</option>
+	<option >7:00pm</option></select><br><br>
+	
+	Adults Passenger?<br>
+	<select name="person" id="person" required>
+	<option>1</option>
+	<option>2</option>
+	<option>3</option>
+	<option>4</option>
+	<option>5</option></select>
+	<br><br>Child(ren) Passenger?<br>
+	<select name="human" id="human" required>
+		<option>1</option>
+	<option>2</option>
+	<option>3</option>
+	<option>4</option>
+	<option>5</option></select><br><br>
+	
+<input type="submit" name="submit" value="search">
+</form>
+
+		<?php
+if(isset($_POST['submit'])){
+
+$p1=$_POST['trip'];
+$p2=$_POST['trav'];
+$p3=$_POST['trato'];
+$p4=$_POST['joun'];
+$p41=$_POST['time'];
+$p5=$_POST['back'];
+$p51=$_POST['arrive'];
+$p6=$_POST['person'];
+$p7=$_POST['human'];
+$p11=$_POST['adult'];
+$p12=$_POST['child'];
+$p13=$_POST['total'];
+$p14=$_POST['adult_1'];
+$p15=$_POST['child_1'];
+$p16=$_POST['total_1'];
+	
+	$sqli = "SELECT * from info where num='$num'";
+			
+		   $sqli2 = mysqli_query($connection,$sqli);
+			  
+			   while($row = mysqli_fetch_array($sqli2))
+				    
+					{
+		$id=$row['id'];
+		$code=$row['code'];
+$num=$row['num'];
+$p1=$row['trip'];
+$p2=$row['trav'];
+$p3=$row['trato'];
+$p4=$row['joun'];
+$p41=$row['time'];
+$p5=$row['back'];
+$p51=$row['arrive'];
+$p6=$row['person'];
+$p7=$row['human'];
+ $p11 = $row["adult"]; 
+$p12 = $row["child"];   					
+ $p13 = $row["total"];   					
+ $p14 = $row["adult_1"];   					
+$p15 = $row["child_1"];   					
+  $p16 = $row["total_1"];   					
+
+
+				   	$kool=$p6*$p11;
+	$hood=$p7*$p12;
+	$mood=$kool+$hood;
+		
+		$kook=$p6*$p14;
+	$hook=$p7*$p15;
+	$mooh=$kook+$hook;
+				   
+			   }
+
+	
+		$insert = mysqli_query($connection,"UPDATE info SET trip='$p1' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET trav='$p2' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET trato='$p3' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET joun='$p4' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET time='$p41' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET back='$p5' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET arrive='$p51' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET person='$p6' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET human='$p7' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+$insert = mysqli_query($connection,"UPDATE info SET total='$mood' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	$insert = mysqli_query($connection,"UPDATE info SET total_1='$mooh' where  num='$num'") or die ('Could not connect: ' .mysqli_error($connection,$insert)); 
+	
+	
+	
+	
+	echo "<script>alert('succefully');window.location.assign('next.php')</script>";
+	
+}
+
+?>
